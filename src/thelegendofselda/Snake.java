@@ -99,26 +99,27 @@ public class Snake {
     }
     private final int HEAD_POSITION = 0;
 
+//<editor-fold defaultstate="collapsed" desc="Move">
     public void move() {
         // make the snake move, please!
         if (!paused) {
-
+            
             Point newHead = (Point) getHead().clone();
             if (direction == Direction.DOWN) {
                 newHead.y++;
             } else if (direction == Direction.RIGHT) {
                 newHead.x++;
-
+                
             } else if (direction == Direction.LEFT) {
                 newHead.x--;
             } else if (direction == Direction.UP) {
                 newHead.y--;
             }
-
+            
             if (this.getLocationValidator() != null) {
                 body.add(HEAD_POSITION, getLocationValidator().validateLocation(newHead));
             }
-
+            
             if (growthCounter == 0) {
                 body.remove(body.size() - 1);
             } else if (growthCounter < 0) {
@@ -131,6 +132,7 @@ public class Snake {
             }
         }
     }
+//</editor-fold>
 
     public Point getHead() {
         return body.get(HEAD_POSITION);

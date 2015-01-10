@@ -42,19 +42,19 @@ public class Score {
     public void addToValue(int amount) {
         this.value += amount;
     }
-//</editor-fold>
 
     /**
      * @return the position
      */
-    public Point getPosistion() {
+    public Point getPosition() {
         return position;
     }
 
     /**
      * @param posistion the position to set
      */
-    public void setPosistion(Point posistion) {
-        this.position = posistion;
+    public void setPosition(Point position) {
+        this.position = position;
     }
+//</editor-fold>
 }

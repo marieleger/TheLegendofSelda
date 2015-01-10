@@ -55,7 +55,7 @@ class SeldaEnvironment extends Environment implements GridDrawData, LocationVali
     public void initializeEnvironment() {
         score = new Score();
       
-        score.getPosition(new Point (10,15 ));
+        score. setPosition(new Point (10,15));
         
         
         this.setBackground(ResourceTools.loadImageFromResource("resources/ZeldaBackground.jpg").getScaledInstance(1400, 900, Image.SCALE_FAST));
@@ -154,6 +154,10 @@ class SeldaEnvironment extends Environment implements GridDrawData, LocationVali
         if (grid != null) {
             grid.paintComponent(graphics);
         }
+        
+        if (score != null){
+            score.draw(graphics);
+        }
 
         if (snake != null) {
             snake.draw(graphics);
@@ -240,15 +244,17 @@ class SeldaEnvironment extends Environment implements GridDrawData, LocationVali
                     snake.grow(WIDTH);
                     object.setLocation(this.randomPoint());
                     AudioPlayer.play("/resources/RupeeSound 2.wav");
+                    this.score.addToValue(+100);
                 } else if (object.getType() == GridObjectType.POISONBOTTLE) {
                     snake.grow(-2);
                     object.setLocation(this.randomPoint());
-                  
+                  this.score.addToValue(-500);
 
                 } else if (object.getType() == GridObjectType.RUPEE) {
                     snake.grow(WIDTH);
                     object.setLocation(this.randomPoint());
                     AudioPlayer.play("/resources/RupeeSound 2.wav");
+                    this.score.addToValue(+10);
                 }
             }
         }
@@ -258,13 +264,14 @@ class SeldaEnvironment extends Environment implements GridDrawData, LocationVali
 
 //</editor-fold>
 
+//<editor-fold defaultstate="collapsed" desc="DrawData get & set">
     /**
      * @return the drawData
      */
     public GridDrawData getDrawData() {
         return drawData;
     }
-
+    
     /**
      * @param drawData the drawData to set
      */
@@ -272,3 +279,4 @@ class SeldaEnvironment extends Environment implements GridDrawData, LocationVali
         this.drawData = drawData;
     }
 }
+//</editor-fold>
