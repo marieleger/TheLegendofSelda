@@ -107,37 +107,25 @@ class SeldaEnvironment extends Environment implements GridDrawData, LocationVali
         if (e.getKeyCode() == KeyEvent.VK_Q) {
             grid.setShowCellCoordinates(!grid.getShowCellCoordinates());
 
-        }
-
-        if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+        } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
             snake.setDirection(Direction.RIGHT);
-        }
-        if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+        } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
             snake.setDirection(Direction.LEFT);
-        }
-
-        if (e.getKeyCode() == KeyEvent.VK_UP) {
+        } else if (e.getKeyCode() == KeyEvent.VK_UP) {
             snake.setDirection(Direction.UP);
-        }
-        if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+        } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
             snake.setDirection(Direction.DOWN);
-        }
-
-        if (e.getKeyCode() == KeyEvent.VK_P) {
+        } else if (e.getKeyCode() == KeyEvent.VK_P) {
             snake.setPaused(!snake.isPaused());
-        }
-        if (e.getKeyCode() == KeyEvent.VK_1) {
+        } else if (e.getKeyCode() == KeyEvent.VK_1) {
             moveDelayLimit = SLOW_SPEED;
-        }
-        if (e.getKeyCode() == KeyEvent.VK_2) {
+        } else if (e.getKeyCode() == KeyEvent.VK_2) {
             moveDelayLimit = MEDIUM_SPEED;
-        }
-        if (e.getKeyCode() == KeyEvent.VK_3) {
+        } else if (e.getKeyCode() == KeyEvent.VK_3) {
             moveDelayLimit = HIGH_SPEED;
         } else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
             snake.grow(2);
         }
-
     }
 
     @Override
@@ -159,9 +147,8 @@ class SeldaEnvironment extends Environment implements GridDrawData, LocationVali
             score.draw(graphics);
         }
 
-        if (snake != null) {
+        if ((snake != null) && (!snake.isDead())) {
             snake.draw(graphics);
-
             if (gridObjects != null) {
                 for (GridObject gridObject : gridObjects) {
                     if (gridObject.getType() == GridObjectType.TRIFORCE) {
@@ -171,6 +158,7 @@ class SeldaEnvironment extends Environment implements GridDrawData, LocationVali
                                                       grid.getCellSystemCoordinate(gridObject.getLocation()).y, 
                                                       grid.getCellWidth(), grid.getCellHeight(), this);
                     }
+                    
 
                 }
             }
@@ -216,6 +204,9 @@ class SeldaEnvironment extends Environment implements GridDrawData, LocationVali
     //<editor-fold defaultstate="collapsed" desc=" LocationValidatorIntf">
     @Override
     public Point validateLocation(Point point) {
+        snake.selfHit();
+        
+        
         if (point.x < 0) {
             point.x = grid.getColumns() - 1;
         }

@@ -27,6 +27,9 @@ public class Snake {
     private boolean paused;
     private Image segmentImage;
     private int growthCounter;
+    public boolean selfHit; 
+    private boolean alive = true;
+    private boolean dead;
 
 //    grow
 //    eat
@@ -186,6 +189,48 @@ public class Snake {
 
     public void grow(int length) {
         growthCounter += length;
+    }
+    
+  
+    /**
+     * @return the alive
+     */
+    public boolean isAlive() {
+        return alive;
+    }
+    
+   
+
+    /**
+     * @param alive the alive to set
+     */
+    public void setAlive(boolean alive) {
+        this.alive = alive;
+    }    
+    
+  public boolean selfHit(){
+        for (int i = 1; i < body.size(); i++) {
+            if (this.getHead().equals(this.body.get(i))) {
+                System.out.println("hello");
+                setDead(true);
+            }
+         }
+        return false;
+        
+    }
+
+    /**
+     * @return the dead
+     */
+    public boolean isDead() {
+        return !alive;
+    }
+
+    /**
+     * @param dead the dead to set
+     */
+    public void setDead(boolean dead) {
+        this.dead = !alive;
     }
 
 }
